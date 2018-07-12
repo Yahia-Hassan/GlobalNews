@@ -49,5 +49,9 @@
     <string name="select_news_category">Select News Category</string>
     <string name="select_category">Select Category</string>
 
+    <string name="image_for_the_article">Image for the article</string>
+    <string name="retry_snackbar_action">Retry</string>
+    <string name="snackbar_taxt">Cannot connect, please try again</string>
+
 
 </resources>

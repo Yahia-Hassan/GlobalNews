@@ -8,10 +8,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,42 +25,25 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter.NewsOnClickHandler {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
     private GlobalNewsAdapter mGlobalNewsAdapter;
-    private LinearLayoutManager mLayoutManager;
     private ProgressBar mProgressBar;
-
-    //private SwipeRefreshLayout mSwipeRefreshLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
         mProgressBar = findViewById(R.id.progressBar);
         mRecyclerView = findViewById(R.id.recycler_view);
+        CoordinatorLayout coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
 
         mGlobalNewsAdapter = new GlobalNewsAdapter(this, this);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mGlobalNewsAdapter);
-
-        showProgressBar();
-
-//        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-//
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                getSupportLoaderManager().restartLoader(LOADER_ID, null, MainActivity.this);
-//                mSwipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
 
 
         if (NetworkIsAvailable()) {
@@ -65,12 +51,16 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
             model.getNews().observe(this, new Observer<ArrayList<News>>() {
                 @Override
                 public void onChanged(@Nullable ArrayList<News> newsArrayList) {
-                    showRecyclerView();
+                    showProgressBar();
                     mGlobalNewsAdapter.swapNewsArrayList(newsArrayList);
+                    showRecyclerView();
                 }
             });
         } else {
-            AlertUserDialog();
+            mProgressBar.setVisibility(View.INVISIBLE);
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.snackbar_taxt, Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction(R.string.retry_snackbar_action, new RetryListener(this));
+            snackbar.show();
 
         }
 
@@ -95,13 +85,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         }
         return networkState;
     }
-
-    private void AlertUserDialog() {
-        AlertDialogFragment dialogFragment = new AlertDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), "network_error");
-    }
-
-
 
     @Override
     public void onClickHandler(String url) {
