@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_countries_entries">
+        <item>@string/pref_label_country_us</item>
+        <item>@string/pref_label_country_canada</item>
+        <item>@string/pref_label_country_uk</item>
+        <item>@string/pref_label_country_france</item>
+        <item>@string/pref_label_country_sweden</item>
+        <item>@string/pref_label_country_egypt</item>
+    </string-array>
+
+    <string-array name="pref_countries_entryValues">
+        <item>@string/pref_country_us</item>
+        <item>@string/pref_country_canada</item>
+        <item>@string/pref_country_uk</item>
+        <item>@string/pref_country_france</item>
+        <item>@string/pref_country_sweden</item>
+        <item>@string/pref_country_egypt</item>
+    </string-array>
+
+
+    <string-array name="pref_categories_entries">
+        <item>@string/pref_label_category_general</item>
+        <item>@string/pref_label_category_business</item>
+        <item>@string/pref_label_category_entertainment</item>
+        <item>@string/pref_label_category_health</item>
+        <item>@string/pref_label_category_science</item>
+        <item>@string/pref_label_category_sports</item>
+        <item>@string/pref_label_category_technology</item>
+    </string-array>
+
+    <string-array name="pref_categories_entryValues">
+        <item>@string/pref_category_general</item>
+        <item>@string/pref_category_business</item>
+        <item>@string/pref_category_entertainment</item>
+        <item>@string/pref_category_health</item>
+        <item>@string/pref_category_science</item>
+        <item>@string/pref_category_sports</item>
+        <item>@string/pref_category_technology</item>
+    </string-array>
+
+</resources>
