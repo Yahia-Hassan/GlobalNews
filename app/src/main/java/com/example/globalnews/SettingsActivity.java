@@ -75,10 +75,10 @@ public class SettingsActivity extends AppCompatActivity {
                         List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
                         Address address = addressList.get(FIRST_INDEX);
                         updateCountry(address.getCountryName());
+                        likelyPlaces.release();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    likelyPlaces.release();
                 }
             });
         }
@@ -98,7 +98,6 @@ public class SettingsActivity extends AppCompatActivity {
                     // functionality that depends on this permission.
                     Toast.makeText(this, R.string.toast_permission_not_granted, Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
 
             // other 'case' lines to check for other
@@ -112,33 +111,37 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (countryName.equals(getString(R.string.pref_label_country_us))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_us));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_canada))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_canada));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_uk))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_uk));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_france))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_france));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_sweden))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_sweden));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_egypt))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_egypt));
+            editor.commit();
             Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, R.string.toast_not_supported, Toast.LENGTH_SHORT).show();
         }
-
-        editor.commit();
     }
 
 

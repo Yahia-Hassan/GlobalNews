@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         mRecyclerView = findViewById(R.id.recycler_view);
         CoordinatorLayout coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
 
+        MobileAds.initialize(this, getString(R.string.adMob_app_id));
+
         mGlobalNewsAdapter = new GlobalNewsAdapter(this, this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
 
         if (NetworkIsAvailable()) {
+            displayBannerAd();
             NewsViewModel model = ViewModelProviders.of(this).get(NewsViewModel.class);
             model.getNews().observe(this, new Observer<ArrayList<News>>() {
                 @Override
@@ -78,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
     }
 
     private void displayBannerAd() {
-        MobileAds.initialize(this, getString(R.string.adMob_app_id));
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
