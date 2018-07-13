@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Global News - Paid</string>
+    <string name="choose_your_country">Choose your country</string>
+
+    <string name="pref_label_country_us">United States</string>
+    <string name="pref_country_us" translatable="false">us</string>
+
+    <string name="pref_label_country_canada">Canada</string>
+    <string name="pref_country_canada" translatable="false">ca</string>
+
+    <string name="pref_label_country_france">France</string>
+    <string name="pref_country_france" translatable="false">fr</string>
+
+    <string name="pref_label_country_uk">United Kingdom</string>
+    <string name="pref_country_uk" translatable="false">gb</string>
+
+    <string name="pref_label_country_sweden">Sweden</string>
+    <string name="pref_country_sweden" translatable="false">se</string>
+
+    <string name="pref_label_country_egypt">Egypt</string>
+    <string name="pref_country_egypt" translatable="false">eg</string>
+
+
+    <string name="pref_label_category_general">General</string>
+    <string name="pref_category_general" translatable="false">general</string>
+
+    <string name="pref_label_category_business">Business</string>
+    <string name="pref_category_business" translatable="false">business</string>
+
+    <string name="pref_label_category_entertainment">Entertainment</string>
+    <string name="pref_category_entertainment" translatable="false">entertainment</string>
+
+    <string name="pref_label_category_health">Health</string>
+    <string name="pref_category_health" translatable="false">health</string>
+
+    <string name="pref_label_category_technology">Technology</string>
+    <string name="pref_category_technology" translatable="false">technology</string>
+
+    <string name="pref_label_category_science">Science</string>
+    <string name="pref_category_science" translatable="false">science</string>
+
+    <string name="pref_label_category_sports">Sports</string>
+    <string name="pref_category_sports" translatable="false">sports</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="pref_choose_your_country_key" translatable="false">pref_choose_your_country_key</string>
+
+    <string name="pref_previously_started_key" translatable="false">pref_previously_started_key</string>
+    <string name="settings_activity_label">Settings</string>
+    <string name="pref_category_key" translatable="false">pref_category_key</string>
+    <string name="select_news_category">Select News Category</string>
+    <string name="select_category">Select Category</string>
+
+    <string name="image_for_the_article">Image for the article</string>
+    <string name="retry_snackbar_action">Retry</string>
+    <string name="snackbar_text">Cannot connect, please try again</string>
+    <string name="toast_country_changed_to">Country changed to</string>
+    <string name="toast_permission_not_granted">Permission not Granted</string>
+    <string name="toast_not_supported">Your country is not yet supported</string>
+
+
+</resources>
