@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final int REQUEST_ACCESS_FINE_LOCATION = 16;
 
     private RecyclerView mRecyclerView;
     private GlobalNewsAdapter mGlobalNewsAdapter;
@@ -67,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
 
         if (NetworkIsAvailable()) {
-
-            printPlaceAndLikelihood();
-
             NewsViewModel model = ViewModelProviders.of(this).get(NewsViewModel.class);
             model.getNews().observe(this, new Observer<ArrayList<News>>() {
                 @Override
@@ -87,37 +83,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
         }
 
-    }
-
-    private void printPlaceAndLikelihood() {
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_ACCESS_FINE_LOCATION);
-        } else {
-            PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(this);
-            Task<PlaceLikelihoodBufferResponse> placeResult  = placeDetectionClient.getCurrentPlace(null);
-            placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
-                @Override
-                public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
-                    PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
-                    PlaceLikelihood likelihood = likelyPlaces.get(0);
-                    Geocoder geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(likelihood.getPlace().getLatLng().latitude, likelihood.getPlace().getLatLng().longitude, 1);
-                        Address address = addressList.get(0);
-                        Log.i(TAG, "Country Name is: " + address.getCountryName());
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
     }
 
     private void showRecyclerView() {
@@ -151,29 +116,6 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    printPlaceAndLikelihood();
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Log.i(TAG, String.format("Permission not Granted"));
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
