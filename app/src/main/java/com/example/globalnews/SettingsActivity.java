@@ -1,10 +1,12 @@
 package com.example.globalnews;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
@@ -63,6 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
                         double longitude = likelihood.getPlace().getLatLng().longitude;
                         List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
                         Address address = addressList.get(FIRST_INDEX);
+                        updateCountry(address.getCountryName());
                         Log.i(TAG, "Country Name is: " + address.getCountryName());
 
                     } catch (IOException e) {
@@ -93,6 +96,33 @@ public class SettingsActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request.
         }
+    }
+
+    private void updateCountry(String countryName) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if (countryName.equals(getString(R.string.pref_label_country_us))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_us));
+
+        } else if (countryName.equals(getString(R.string.pref_label_country_canada))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_canada));
+
+        } else if (countryName.equals(getString(R.string.pref_label_country_uk))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_uk));
+
+        } else if (countryName.equals(getString(R.string.pref_label_country_france))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_france));
+
+        } else if (countryName.equals(getString(R.string.pref_label_country_sweden))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_sweden));
+
+        } else if (countryName.equals(getString(R.string.pref_label_country_egypt))) {
+            editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_egypt));
+
+        }
+
+        editor.commit();
     }
 
 
