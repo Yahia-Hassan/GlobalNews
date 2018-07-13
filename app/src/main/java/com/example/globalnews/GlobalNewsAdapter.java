@@ -47,8 +47,9 @@ public class GlobalNewsAdapter extends RecyclerView.Adapter<GlobalNewsAdapter.Gl
     @Override
     public void onBindViewHolder(@NonNull GlobalNewsViewHolder holder, int position) {
         holder.articleTitle.setText(mNewsArrayList.get(position).getTitle());
-        Picasso.with(mContext)
+        Picasso.get()
                 .load(mNewsArrayList.get(position).getUrlToImage())
+                .error(R.color.imageError)
                 .into(holder.articleImage);
     }
 

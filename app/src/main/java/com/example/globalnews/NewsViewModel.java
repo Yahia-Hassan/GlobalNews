@@ -1,39 +1,33 @@
 package com.example.globalnews;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.example.globalnews.utils.JSONUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 public class NewsViewModel extends AndroidViewModel {
-
-    private static final String API_KEY = BuildConfig.API_KEY;
-    ArrayList<News> newsArrayList;
-
     private final MutableLiveData<ArrayList<News>> newsLiveData = new MutableLiveData<>();
 
     public NewsViewModel(@NonNull Application application) {
@@ -52,7 +46,9 @@ public class NewsViewModel extends AndroidViewModel {
             protected String doInBackground(Void... voids) {
                 OkHttpClient client = new OkHttpClient();
 
-                String countryCode = PreferenceManager.getDefaultSharedPreferences(context)
+                String API_KEY = context.getResources().getString(R.string.API_KEY);
+
+                        String countryCode = PreferenceManager.getDefaultSharedPreferences(context)
                         .getString(context.getString(R.string.pref_choose_your_country_key), context.getString(R.string.pref_country_us));
 
                 String newsCategory = PreferenceManager.getDefaultSharedPreferences(context)
