@@ -13,6 +13,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
@@ -36,7 +37,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        printPlaceAndLikelihood();
+        // I got help from this answer: https://stackoverflow.com/a/7238549
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean previouslyStarted = sharedPref.getBoolean(getString(R.string.pref_previously_started_key), false);
+        if (!previouslyStarted) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(getString(R.string.pref_previously_started_key), true);
+            editor.commit();
+            printPlaceAndLikelihood();
+        }
     }
 
 
@@ -66,11 +75,10 @@ public class SettingsActivity extends AppCompatActivity {
                         List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
                         Address address = addressList.get(FIRST_INDEX);
                         updateCountry(address.getCountryName());
-                        Log.i(TAG, "Country Name is: " + address.getCountryName());
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    likelyPlaces.release();
                 }
             });
         }
@@ -88,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Log.i(TAG, String.format("Permission not Granted"));
+                    Toast.makeText(this, R.string.toast_permission_not_granted, Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -104,22 +112,30 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (countryName.equals(getString(R.string.pref_label_country_us))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_us));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_canada))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_canada));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_uk))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_uk));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_france))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_france));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_sweden))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_sweden));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
         } else if (countryName.equals(getString(R.string.pref_label_country_egypt))) {
             editor.putString(getString(R.string.pref_choose_your_country_key), getString(R.string.pref_country_egypt));
+            Toast.makeText(this, getString(R.string.toast_country_changed_to) + " " + countryName, Toast.LENGTH_SHORT).show();
 
+        } else {
+            Toast.makeText(this, R.string.toast_not_supported, Toast.LENGTH_SHORT).show();
         }
 
         editor.commit();
