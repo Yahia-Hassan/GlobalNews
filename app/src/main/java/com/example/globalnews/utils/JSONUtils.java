@@ -1,6 +1,5 @@
 package com.example.globalnews.utils;
 
-import android.net.Uri;
 import android.util.Log;
 
 import com.example.globalnews.News;
@@ -42,12 +41,11 @@ public class JSONUtils {
         }
     }
 
-    private static Uri getImageUri(JSONObject jsonObject, int index) {
+    private static String getImageUri(JSONObject jsonObject, int index) {
         try {
             JSONArray articlesArray = jsonObject.getJSONArray("articles");
             JSONObject article = articlesArray.getJSONObject(index);
-            String urlToImageAsString = article.getString("urlToImage");
-            return Uri.parse(urlToImageAsString);
+            return article.getString("urlToImage");
         } catch (JSONException e) {
             Log.e(TAG, "Exception caught at getImageUri(): " + e);
             return null;

@@ -7,21 +7,19 @@
 
     <TextView
         android:id="@+id/article_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingStart="16dp"
-        android:textAlignment="center"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/selectableItemBackground"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/article_star_icon"
+        app:layout_constraintLeft_toLeftOf="@+id/article_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/article_image"
-        tools:text="Hello World!"
-        android:background="?android:attr/selectableItemBackground"/>
+        tools:text="Hello World!" />
 
     <ImageView
         android:id="@+id/article_image"
@@ -36,6 +34,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorPrimaryDark"
         android:contentDescription="@string/image_for_the_article"/>
+
+    <ImageButton
+        android:id="@+id/article_star_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/star_icon"
+        android:src="@drawable/ic_star_border_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/article_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/article_title" />
 
     <View
         android:id="@+id/view"

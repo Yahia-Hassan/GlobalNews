@@ -59,6 +59,7 @@
     <string name="toast_country_changed_to">Country changed to</string>
     <string name="toast_permission_not_granted">Permission not Granted</string>
     <string name="toast_not_supported">Your country is not yet supported</string>
+    <string name="star_icon">Star Icon</string>
 
 
 </resources>

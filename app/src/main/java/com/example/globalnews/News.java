@@ -1,18 +1,14 @@
 package com.example.globalnews;
-import android.net.Uri;
 
-import com.google.gson.annotations.SerializedName;
+import android.arch.persistence.room.Entity;
 
-
+@Entity(tableName = "news_table")
 public class News {
-    @SerializedName("title")
     private String title;
 
-    @SerializedName("url")
     private String url;
 
-    @SerializedName("urlToImage")
-    private Uri urlToImage;
+    private String urlToImage;
 
     public String getTitle() {
         return title;
@@ -30,11 +26,11 @@ public class News {
         this.url = url;
     }
 
-    public Uri getUrlToImage() {
+    public String getUrlToImage() {
         return urlToImage;
     }
 
-    public void setUrlToImage(Uri urlToImage) {
+    public void setUrlToImage(String urlToImage) {
         this.urlToImage = urlToImage;
     }
 }
