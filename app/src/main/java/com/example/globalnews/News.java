@@ -1,37 +1,45 @@
 package com.example.globalnews;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "news_table")
 public class News {
-    private String title;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "title")
+    private String mTitle;
 
-    private String url;
+    @ColumnInfo(name = "url")
+    private String mUrl;
 
-    private String urlToImage;
+    @ColumnInfo(name = "urlToImage")
+    private String mUrlToImage;
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mTitle = title;
     }
 
     public String getUrl() {
-        return url;
+        return mUrl;
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.mUrl = url;
     }
 
     public String getUrlToImage() {
-        return urlToImage;
+        return mUrlToImage;
     }
 
     public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
+        this.mUrlToImage = urlToImage;
     }
 }
 
