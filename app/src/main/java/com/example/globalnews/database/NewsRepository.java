@@ -6,11 +6,11 @@ import android.os.AsyncTask;
 
 import com.example.globalnews.News;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NewsRepository {
     private NewsDao mNewsDao;
-    private LiveData<ArrayList<News>> mAllNews;
+    private LiveData<List<News>> mAllNews;
 
     public NewsRepository(Application application) {
         NewsRoomDatabase db = NewsRoomDatabase.getDatabase(application);
@@ -18,7 +18,7 @@ public class NewsRepository {
         mAllNews = mNewsDao.getAllStarredNews();
     }
 
-    public LiveData<ArrayList<News>> getAllStarredNews() {
+    public LiveData<List<News>> getAllStarredNews() {
         return mAllNews;
     }
 

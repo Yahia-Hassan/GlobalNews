@@ -9,26 +9,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JSONUtils {
 
     private static final String TAG = JSONUtils.class.getSimpleName();
 
 
-    public static ArrayList<News> createNewsArrayList(String response) {
-        ArrayList<News> newsArrayList = new ArrayList<>();
+    public static List<News> createNewsList(String response) {
+        List<News> newsList = new ArrayList<>();
         JSONObject jsonObject = makeJSONObject(response);
 
         if (jsonObject != null) {
             for (int i = 0; i < getResultsCount(jsonObject); i++) {
-                News news = new News();
-                news.setTitle(getArticleTitle(jsonObject, i));
-                news.setUrl(getArticleUrlAsString(jsonObject, i));
-                news.setUrlToImage(getImageUri(jsonObject, i));
-                newsArrayList.add(news);
+                News news = new News(getArticleTitle(jsonObject, i), getArticleUrlAsString(jsonObject, i), getImageUri(jsonObject, i));
+                newsList.add(news);
             }
         }
-        return newsArrayList;
+        return newsList;
     }
 
     private static JSONObject makeJSONObject(String jsonResponse) {

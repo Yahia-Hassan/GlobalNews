@@ -23,19 +23,20 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class NewsViewModel extends AndroidViewModel {
-    private final MutableLiveData<ArrayList<News>> newsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<News>> newsLiveData = new MutableLiveData<>();
 
     public NewsViewModel(@NonNull Application application) {
         super(application);
         loadNews(application);
     }
 
-    public LiveData<ArrayList<News>> getNews() {
+    public LiveData<List<News>> getNews() {
         return newsLiveData;
     }
 
@@ -81,8 +82,8 @@ public class NewsViewModel extends AndroidViewModel {
             @Override
             protected void onPostExecute(String data) {
                 super.onPostExecute(data);
-                ArrayList<News> newsArrayList = JSONUtils.createNewsArrayList(data);
-                newsLiveData.setValue(newsArrayList);
+                List<News> newsList = JSONUtils.createNewsList(data);
+                newsLiveData.setValue(newsList);
             }
         }.execute();
     }

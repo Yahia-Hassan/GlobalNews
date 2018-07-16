@@ -9,11 +9,12 @@ import android.arch.persistence.room.Query;
 import com.example.globalnews.News;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface NewsDao {
     @Query("SELECT * FROM news_table")
-    LiveData<ArrayList<News>> getAllStarredNews();
+    LiveData<List<News>> getAllStarredNews();
 
     @Insert
     void insert(News news);

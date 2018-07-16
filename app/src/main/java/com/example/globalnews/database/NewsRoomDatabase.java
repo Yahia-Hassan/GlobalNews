@@ -14,7 +14,7 @@ public abstract class NewsRoomDatabase extends RoomDatabase {
 
     private static NewsRoomDatabase INSTANCE;
 
-    static NewsRoomDatabase getDatabase(final Context context) {
+    public static NewsRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (NewsRoomDatabase.class) {
                 if (INSTANCE == null) {

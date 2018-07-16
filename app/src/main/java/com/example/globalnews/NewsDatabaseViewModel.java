@@ -7,22 +7,22 @@ import android.support.annotation.NonNull;
 
 import com.example.globalnews.database.NewsRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NewsDatabaseViewModel extends AndroidViewModel {
 
     private NewsRepository mRepository;
 
-    private LiveData<ArrayList<News>> mAllNews;
+    private LiveData<List<News>> mAllStarredNews;
 
     public NewsDatabaseViewModel(@NonNull Application application) {
         super(application);
         mRepository = new NewsRepository(application);
-        mAllNews = mRepository.getAllStarredNews();
+        mAllStarredNews = mRepository.getAllStarredNews();
     }
 
-    public LiveData<ArrayList<News>> getAllNews() {
-        return mAllNews;
+    public LiveData<List<News>> getAllStarredNews() {
+        return mAllStarredNews;
     }
 
     public void insert(News news) {

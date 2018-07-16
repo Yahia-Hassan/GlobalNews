@@ -11,7 +11,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/main_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
@@ -35,9 +35,9 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@+id/recycler_view"
+        app:layout_anchor="@+id/main_recycler_view"
         app:layout_anchorGravity="bottom|center"
         android:layout_margin="8dp"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_unit_id"/>
+        ads:adUnitId="@string/ad_unit_id" />
 </android.support.design.widget.CoordinatorLayout>

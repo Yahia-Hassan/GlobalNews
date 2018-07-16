@@ -14,17 +14,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.globalnews.database.NewsRepository;
+import com.example.globalnews.database.NewsRoomDatabase;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /*
     Note: Please run the app on a real device (not an emulator)
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
     private GlobalNewsAdapter mGlobalNewsAdapter;
     private ProgressBar mProgressBar;
     private AdView mAdView;
+    private NewsDatabaseViewModel mNewsDatabaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         setContentView(R.layout.activity_main);
 
         mProgressBar = findViewById(R.id.progressBar);
-        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.main_recycler_view);
         CoordinatorLayout coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
 
         MobileAds.initialize(this, getString(R.string.adMob_app_id));
@@ -58,15 +62,24 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mGlobalNewsAdapter);
 
+        mNewsDatabaseViewModel = ViewModelProviders.of(this).get(NewsDatabaseViewModel.class);
+        mNewsDatabaseViewModel.getAllStarredNews().observe(this, new Observer<List<News>>() {
+            @Override
+            public void onChanged(@Nullable List<News> news) {
+                mGlobalNewsAdapter.swapStarredNewsList(news);
+            }
+        });
+
 
         if (NetworkIsAvailable()) {
             displayBannerAd();
             NewsViewModel model = ViewModelProviders.of(this).get(NewsViewModel.class);
-            model.getNews().observe(this, new Observer<ArrayList<News>>() {
+            model.getNews().observe(this, new Observer<List<News>>() {
                 @Override
-                public void onChanged(@Nullable ArrayList<News> newsArrayList) {
+                public void onChanged(@Nullable List<News> news) {
                     showProgressBar();
-                    mGlobalNewsAdapter.swapNewsArrayList(newsArrayList);
+                    mGlobalNewsAdapter.swapNewsList(news);
+                    mGlobalNewsAdapter.notifyDataSetChanged();
                     showRecyclerView();
                 }
             });
@@ -113,13 +126,21 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
     @Override
     public void onClickHandler(String url) {
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        Uri webPage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
     }
 
+    @Override
+    public void onStarClickHandler(News news, boolean isStarred) {
+        if (!isStarred) {
+            mNewsDatabaseViewModel.insert(news);
+        } else {
+            mNewsDatabaseViewModel.delete(news);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,6 +156,10 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
             case R.id.menu_settings:
                 startSettingsActivity();
                 return true;
+
+            case R.id.menu_action_favorite:
+                startStarredNewsActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -142,6 +167,11 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
 
     private void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void startStarredNewsActivity() {
+        Intent intent = new Intent(this, StarredNewsActivity.class);
         startActivity(intent);
     }
 }
