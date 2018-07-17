@@ -16,6 +16,10 @@ public interface NewsDao {
     @Query("SELECT * FROM news_table")
     LiveData<List<News>> getAllStarredNews();
 
+    // This method will be used in the Widget only.
+    @Query("SELECT * FROM news_table")
+    List<News> getAllStarredNewsForWidget();
+
     @Insert
     void insert(News news);
 
