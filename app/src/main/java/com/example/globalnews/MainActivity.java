@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
     private ProgressBar mProgressBar;
     private AdView mAdView;
     private NewsDatabaseViewModel mNewsDatabaseViewModel;
+    private List<News> mStarredNewsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
         mNewsDatabaseViewModel.getAllStarredNews().observe(this, new Observer<List<News>>() {
             @Override
             public void onChanged(@Nullable List<News> news) {
-                mGlobalNewsAdapter.swapStarredNewsList(news);
+                mStarredNewsList = news;
+                mGlobalNewsAdapter.swapStarredNewsList(mStarredNewsList);
             }
         });
 
@@ -134,12 +136,13 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
     }
 
     @Override
-    public void onStarClickHandler(News news, boolean isStarred) {
-        if (!isStarred) {
-            mNewsDatabaseViewModel.insert(news);
-        } else {
-            mNewsDatabaseViewModel.delete(news);
-        }
+    public void onStarClickHandlerInsert(News news) {
+        mNewsDatabaseViewModel.insert(news);
+    }
+
+    @Override
+    public void onStarClickHandlerDelete(int starredItemIndex) {
+        mNewsDatabaseViewModel.delete(mStarredNewsList.get(starredItemIndex));
     }
 
     @Override

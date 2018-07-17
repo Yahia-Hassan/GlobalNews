@@ -22,6 +22,7 @@ public class StarredNewsActivity extends AppCompatActivity implements GlobalNews
     private RecyclerView mStarredNewsRecyclerView;
     private GlobalNewsAdapter mGlobalNewsAdapter;
     private NewsDatabaseViewModel mNewsDatabaseViewModel;
+    private List<News> mStarredNewsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,9 @@ public class StarredNewsActivity extends AppCompatActivity implements GlobalNews
         mNewsDatabaseViewModel.getAllStarredNews().observe(this, new Observer<List<News>>() {
             @Override
             public void onChanged(@Nullable List<News> news) {
-                mGlobalNewsAdapter.swapStarredNewsList(news);
-                mGlobalNewsAdapter.swapNewsList(news);
+                mStarredNewsList = news;
+                mGlobalNewsAdapter.swapStarredNewsList(mStarredNewsList);
+                mGlobalNewsAdapter.swapNewsList(mStarredNewsList);
                 mGlobalNewsAdapter.notifyDataSetChanged();
             }
         });
@@ -56,12 +58,13 @@ public class StarredNewsActivity extends AppCompatActivity implements GlobalNews
     }
 
     @Override
-    public void onStarClickHandler(News news, boolean isStarred) {
-        if (!isStarred) {
-            mNewsDatabaseViewModel.insert(news);
-        } else {
-            mNewsDatabaseViewModel.delete(news);
-        }
+    public void onStarClickHandlerInsert(News news) {
+        mNewsDatabaseViewModel.insert(news);
+    }
+
+    @Override
+    public void onStarClickHandlerDelete(int starredItemIndex) {
+        mNewsDatabaseViewModel.delete(mStarredNewsList.get(starredItemIndex));
     }
 
     @Override

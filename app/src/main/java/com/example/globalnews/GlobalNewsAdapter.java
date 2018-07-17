@@ -31,7 +31,9 @@ public class GlobalNewsAdapter extends RecyclerView.Adapter<GlobalNewsAdapter.Gl
     public interface NewsOnClickHandler {
         void onClickHandler(String url);
 
-        void onStarClickHandler(News news, boolean isStarred);
+        void onStarClickHandlerInsert(News news);
+
+        void onStarClickHandlerDelete(int starredItemIndex);
     }
 
 
@@ -73,6 +75,19 @@ public class GlobalNewsAdapter extends RecyclerView.Adapter<GlobalNewsAdapter.Gl
             }
         }
         return isStarred;
+    }
+
+    private int getStarredItemIndex(News news) {
+        int starredItemIndex = -1;
+        if (mStarredNewsList != null) {
+            for (int i = 0; i < mStarredNewsList.size(); i++) {
+                if (news.getTitle().equals(mStarredNewsList.get(i).getTitle())) {
+                    starredItemIndex = i;
+                    break;
+                }
+            }
+        }
+        return starredItemIndex;
     }
 
     @Override
@@ -119,10 +134,12 @@ public class GlobalNewsAdapter extends RecyclerView.Adapter<GlobalNewsAdapter.Gl
                 boolean isStarred = isArticleStarred(news);
                 if (isStarred) {
                     articleStarIcon.setImageDrawable(mContext.getDrawable(R.drawable.ic_star_border_24dp));
+                    mNewsOnClickHandler.onStarClickHandlerDelete(getStarredItemIndex(news));
                 } else {
                     articleStarIcon.setImageDrawable(mContext.getDrawable(R.drawable.ic_star_24dp));
+                    mNewsOnClickHandler.onStarClickHandlerInsert(news);
                 }
-                mNewsOnClickHandler.onStarClickHandler(news, isStarred);
+
 
             } else {
                 String articleUrl = mNewsList.get(getAdapterPosition()).getUrl();
