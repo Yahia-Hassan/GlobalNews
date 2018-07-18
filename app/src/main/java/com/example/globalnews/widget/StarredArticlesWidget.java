@@ -1,5 +1,6 @@
 package com.example.globalnews.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -7,11 +8,14 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.globalnews.R;
+import com.example.globalnews.StarredNewsActivity;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class StarredArticlesWidget extends AppWidgetProvider {
+
+    public static final String EXTRA_ITEM = "com.example.globalnews.widget.EXTRA_ITEM";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -21,6 +25,11 @@ public class StarredArticlesWidget extends AppWidgetProvider {
 
         Intent intent = new Intent(context, StarredArticlesWidgetRemoteViewsService.class);
         remoteViews.setRemoteAdapter(R.id.appwidget_list_view, intent);
+
+        Intent starredActivityIntent = new Intent(context, StarredNewsActivity.class);
+        PendingIntent starredActivityPendingIntent = PendingIntent.getActivity(context, 0, starredActivityIntent, 0);
+        remoteViews.setPendingIntentTemplate(R.id.appwidget_list_view, starredActivityPendingIntent);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }

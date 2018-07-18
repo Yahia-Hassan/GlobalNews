@@ -20,7 +20,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/GLOBAL_NEWS_PLACES_API_KEY" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

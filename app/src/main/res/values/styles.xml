@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Main">
+        <item name="android:windowExitTransition">@transition/main_activity_exit</item>
+    </style>
+
 </resources>

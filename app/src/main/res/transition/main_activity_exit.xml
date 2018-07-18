@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Activity Transition-->
+<!--https://android.jlelse.eu/android-material-design-activity-transition-55de706ab967-->
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together">
+
+    <explode xmlns:android="http://schemas.android.com/apk/res/android">
+    </explode>
+    <fade>
+    </fade>
+
+</transitionSet>

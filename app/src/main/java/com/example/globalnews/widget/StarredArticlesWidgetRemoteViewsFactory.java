@@ -1,6 +1,8 @@
 package com.example.globalnews.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -52,6 +54,11 @@ public class StarredArticlesWidgetRemoteViewsFactory implements RemoteViewsServi
         if (mNewsList != null) {
             RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
             remoteViews.setTextViewText(R.id.widget_list_item_text_view, mNewsList.get(position).getTitle());
+
+            // Widget on click handling: https://developer.android.com/guide/topics/appwidgets/#persisting-data - Adding behavior to individual items
+            Intent fillInIntent = new Intent();
+            remoteViews.setOnClickFillInIntent(R.id.widget_list_item_text_view, fillInIntent);
+
             return remoteViews;
         } else {
             return null;
