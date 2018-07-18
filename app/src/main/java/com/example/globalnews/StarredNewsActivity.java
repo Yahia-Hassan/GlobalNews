@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.globalnews.database.NewsRepository;
 import com.example.globalnews.database.NewsRoomDatabase;
+import com.example.globalnews.utils.WidgetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class StarredNewsActivity extends AppCompatActivity implements GlobalNews
                 mGlobalNewsAdapter.swapStarredNewsList(mStarredNewsList);
                 mGlobalNewsAdapter.swapNewsList(mStarredNewsList);
                 mGlobalNewsAdapter.notifyDataSetChanged();
+                WidgetUtils.updateWidget(getBaseContext());
             }
         });
     }

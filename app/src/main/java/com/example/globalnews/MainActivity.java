@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 
 import com.example.globalnews.database.NewsRepository;
 import com.example.globalnews.database.NewsRoomDatabase;
+import com.example.globalnews.utils.WidgetUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter
             public void onChanged(@Nullable List<News> news) {
                 mStarredNewsList = news;
                 mGlobalNewsAdapter.swapStarredNewsList(mStarredNewsList);
+                WidgetUtils.updateWidget(getBaseContext());
             }
         });
 
