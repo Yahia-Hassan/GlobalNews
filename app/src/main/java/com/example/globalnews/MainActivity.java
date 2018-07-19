@@ -31,12 +31,6 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
-/*
-    Note: Please run the app on a real device (not an emulator)
-    because the emulator is having issues with location as you can see here:
-    https://github.com/googlemaps/android-samples/issues/73#issuecomment-346664533
- */
-
 public class MainActivity extends AppCompatActivity implements GlobalNewsAdapter.NewsOnClickHandler {
 
     public static final String TAG = MainActivity.class.getSimpleName();
