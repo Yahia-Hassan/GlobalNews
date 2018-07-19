@@ -8,7 +8,7 @@ import android.content.Context;
 import com.example.globalnews.News;
 import com.example.globalnews.R;
 
-@Database(entities = {News.class}, version = 1)
+@Database(entities = {News.class}, version = 1, exportSchema = false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
     public abstract NewsDao newsDao();
 
