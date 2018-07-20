@@ -2,7 +2,6 @@ package com.example.globalnews.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 

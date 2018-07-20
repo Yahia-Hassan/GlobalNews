@@ -61,8 +61,6 @@
     <string name="toast_not_supported">Your country is not yet supported</string>
     <string name="star_icon">Star Icon</string>
     <string name="starred_news_activity_label">Starred Articles</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="widget_title">Starred Articles</string>
     <string name="menu_starred_articles">Starred Articles</string>
 
