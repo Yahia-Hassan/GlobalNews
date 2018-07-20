@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Global News</string>
-    <string name="adMob_app_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="adMob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="choose_your_country">Choose your country</string>
 
     <string name="pref_label_country_us">United States</string>
