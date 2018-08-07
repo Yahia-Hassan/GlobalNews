@@ -1,6 +1,11 @@
 # Global News
 Global News is an Android app that shows you top headlines from the US, Canada, UK, France, Sweden and Egypt, it uses the [News API](https://newsapi.org/)
 
+# Screenshots
+<img src="Screenshots/Screenshot 1.png" height="633" width="332.5">
+<img src="Screenshots/Screenshot 2.png" height="633" width="332.5">
+<img src="Screenshots/Screenshot 3.png" height="633" width="332.5">
+
 You have to create two files first,
 
 1- gradle.properties and add this in it:
